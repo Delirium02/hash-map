@@ -48,4 +48,32 @@ class HashMap {
 
     return null;
   }
+
+  has(key) {
+    let index = this.hash(key);
+    let bucket = this.buckets[index];
+
+    for (let i = 0; i < bucket.length; i++) {
+      if (bucket[i][0] === key) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  remove(key) {
+    let index = this.hash(key);
+    let bucket = this.buckets[index];
+
+    for (let i = 0; i < bucket.length; i++) {
+      if (bucket[i][0] === key) {
+        bucket.splice(i, 1);
+        this.size--;
+        return true;
+      }
+    }
+
+    return false;
+  }
 }

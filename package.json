@@ -1,0 +1,26 @@
+{
+  "name": "hash-map",
+  "version": "1.0.0",
+  "description": "A Hash Map Data Structure - From The Odin Project",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Delirium02/hash-map.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Delirium02/hash-map/issues"
+  },
+  "homepage": "https://github.com/Delirium02/hash-map#readme",
+  "devDependencies": {
+    "@babel/core": "^7.29.0",
+    "@babel/preset-env": "^7.29.2",
+    "babel-jest": "^30.3.0",
+    "jest": "^30.3.0"
+  }
+}
