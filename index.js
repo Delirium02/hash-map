@@ -35,4 +35,17 @@ class HashMap {
     bucket.push([key, value]);
     this.size++;
   }
+
+  get(key) {
+    let index = this.hash(key);
+    let bucket = this.buckets[index];
+
+    for (let i = 0; i < bucket.length; i++) {
+      if (bucket[i][0] === key) {
+        return bucket[i][1];
+      }
+    }
+
+    return null;
+  }
 }
