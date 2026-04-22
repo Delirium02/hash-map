@@ -2,6 +2,8 @@ class HashMap {
   constructor(initialCapacity = 16, loadFactor = 0.75) {
     this.capacity = initialCapacity;
     this.loadFactor = loadFactor;
+    this.size = 0;
+    this.buckets = new Array(this.capacity).fill(null).map(() => []);
   }
 
   hash(key) {
@@ -17,5 +19,20 @@ class HashMap {
     }
 
     return hashCode;
+  }
+  
+  set(key, value) {
+    let index = this.hash(key);
+    let bucket = this.buckets[index];
+
+    for (let i = 0; i < bucket.length; i++) {
+      if (bucket[i][0] === key) {
+        bucket[i][1] = value;
+        return;
+      }
+    }
+
+    bucket.push([key, value]);
+    this.size++;
   }
 }
