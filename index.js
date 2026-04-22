@@ -76,4 +76,13 @@ class HashMap {
 
     return false;
   }
+
+  length() {
+    return this.size;
+  }
+
+  clear() {
+    this.size = 0;
+    this.buckets = new Array().fill(null).map(() => []);
+  }
 }
