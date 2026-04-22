@@ -85,4 +85,16 @@ class HashMap {
     this.size = 0;
     this.buckets = new Array().fill(null).map(() => []);
   }
+
+  keys() {
+    let allKeys = [];
+
+    for (const bucket of this.buckets) {
+      for (const entry of bucket) {
+        allKeys.push(entry[0]);
+      }
+    }
+
+    return allKeys;
+  }
 }
