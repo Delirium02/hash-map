@@ -1,112 +1,125 @@
-class HashMap {
-  constructor(initialCapacity = 16, loadFactor = 0.75) {
-    this.capacity = initialCapacity;
-    this.loadFactor = loadFactor;
-    this.size = 0;
-    this.buckets = new Array(this.capacity).fill(null).map(() => []);
-  }
+export class HashMap {
+	constructor(initialCapacity = 16, loadFactor = 0.75) {
+		this.capacity = initialCapacity;
+		this.loadFactor = loadFactor;
+		this.size = 0;
+		this.buckets = new Array(this.capacity).fill(null).map(() => []);
+	}
 
-  hash(key) {
-    if (typeof key !== "string") {
-      throw new Error("Keys can be strings only");
-    };
+	hash(key) {
+		if (typeof key !== "string") {
+			throw new Error("Keys can be strings only");
+		}
 
-    let hashCode = 0;
+		let hashCode = 0;
 
-    const primeNumber = 31;
-    for (let i = 0; i < key.length; i++) {
-      hashCode = (primeNumber * hashCode + key.charCodeAt(i)) % this.capacity;
-    }
+		const primeNumber = 31;
+		for (let i = 0; i < key.length; i++) {
+			hashCode =
+				(primeNumber * hashCode + key.charCodeAt(i)) % this.capacity;
+		}
 
-    return hashCode;
-  }
-  
-  set(key, value) {
-    let index = this.hash(key);
-    let bucket = this.buckets[index];
+		return hashCode;
+	}
 
-    for (let i = 0; i < bucket.length; i++) {
-      if (bucket[i][0] === key) {
-        bucket[i][1] = value;
-        return;
-      }
-    }
+	set(key, value) {
+		let index = this.hash(key);
+		let bucket = this.buckets[index];
 
-    bucket.push([key, value]);
-    this.size++;
-  }
+		for (let i = 0; i < bucket.length; i++) {
+			if (bucket[i][0] === key) {
+				bucket[i][1] = value;
+				return;
+			}
+		}
 
-  get(key) {
-    let index = this.hash(key);
-    let bucket = this.buckets[index];
+		bucket.push([key, value]);
+		this.size++;
+	}
 
-    for (let i = 0; i < bucket.length; i++) {
-      if (bucket[i][0] === key) {
-        return bucket[i][1];
-      }
-    }
+	get(key) {
+		let index = this.hash(key);
+		let bucket = this.buckets[index];
 
-    return null;
-  }
+		for (let i = 0; i < bucket.length; i++) {
+			if (bucket[i][0] === key) {
+				return bucket[i][1];
+			}
+		}
 
-  has(key) {
-    let index = this.hash(key);
-    let bucket = this.buckets[index];
+		return null;
+	}
 
-    for (let i = 0; i < bucket.length; i++) {
-      if (bucket[i][0] === key) {
-        return true;
-      }
-    }
+	has(key) {
+		let index = this.hash(key);
+		let bucket = this.buckets[index];
 
-    return false;
-  }
+		for (let i = 0; i < bucket.length; i++) {
+			if (bucket[i][0] === key) {
+				return true;
+			}
+		}
 
-  remove(key) {
-    let index = this.hash(key);
-    let bucket = this.buckets[index];
+		return false;
+	}
 
-    for (let i = 0; i < bucket.length; i++) {
-      if (bucket[i][0] === key) {
-        bucket.splice(i, 1);
-        this.size--;
-        return true;
-      }
-    }
+	remove(key) {
+		let index = this.hash(key);
+		let bucket = this.buckets[index];
 
-    return false;
-  }
+		for (let i = 0; i < bucket.length; i++) {
+			if (bucket[i][0] === key) {
+				bucket.splice(i, 1);
+				this.size--;
+				return true;
+			}
+		}
 
-  length() {
-    return this.size;
-  }
+		return false;
+	}
 
-  clear() {
-    this.size = 0;
-    this.buckets = new Array().fill(null).map(() => []);
-  }
+	length() {
+		return this.size;
+	}
 
-  keys() {
-    let allKeys = [];
+	clear() {
+		this.size = 0;
+		this.buckets = new Array(this.capacity).fill(null).map(() => []);
+	}
 
-    for (const bucket of this.buckets) {
+	keys() {
+		let allKeys = [];
+
+		for (const bucket of this.buckets) {
+			for (const entry of bucket) {
+				allKeys.push(entry[0]);
+			}
+		}
+
+		return allKeys;
+	}
+
+	values() {
+		let allValues = [];
+
+		for (const bucket of this.buckets) {
+			for (const entry of bucket) {
+				allValues.push(entry[1]);
+			}
+		}
+
+		return allValues;
+	}
+
+	entries() {
+		let allEntries = [];
+
+		for (const bucket of this.buckets) {
       for (const entry of bucket) {
-        allKeys.push(entry[0]);
-      }
-    }
+				allEntries.push(entry);
+			}
+		}
 
-    return allKeys;
-  }
-
-  values() {
-    let allValues = [];
-
-    for (const bucket of this.buckets) {
-      for (const entry of bucket) {
-        allValues.push(entry[1]);
-      }
-    }
-
-    return allValues;
-  }
+		return allEntries;
+	}
 }
