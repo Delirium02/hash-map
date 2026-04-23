@@ -23,6 +23,17 @@ export class HashMap {
 	}
 
 	set(key, value) {
+    if (!this.has(key) && (this.size) / this.capacity >= this.loadFactor) {
+      const currentEntries = this.entries();
+
+      this.capacity *= 2;
+      this.clear();
+
+      currentEntries.forEach(([oldKey, oldValue]) => {
+        this.set(oldKey, oldValue);
+      })
+    }
+
 		let index = this.hash(key);
 		let bucket = this.buckets[index];
 
